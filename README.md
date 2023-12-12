@@ -11,7 +11,7 @@ Saas Project to manage a Pet Care place
     - Commit and push to that branch, and create PR(pull request) into main/sometime main or other branch we will be told
     - The PM, tester, or someone eligable doing functional testing
     - Code Review (usually by me)
-    - If the code matches the functional, techniqual requirement, follows our design and ready to merge, i 'll merge it into the main branch, if not i leave comments
+    - If the code matches the functional, techniqual requirement, follows our design and ready to merge, i 'll merge it into the main branch, if not i 'll leave comments
 ## Technical Requirement
 ### Implementation Details
 - Java Version: 17
