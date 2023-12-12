@@ -7,7 +7,7 @@ Saas Project to manage a Pet Care place
 - When we given a task we :
     - Got the requirements (Make sure we and the requirements are aligned)
     - Create new branch (usually from the main or develop)
-    - Design, Implement, and test
+    - Design, Implement, and test the feature
     - Commit and push to that branch, and create PR(pull request) into main/sometime main or other branch we will be told
     - The PM, tester, or someone eligable doing functional testing
     - Code Review (usually by me)
