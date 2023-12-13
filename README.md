@@ -15,7 +15,7 @@ Saas Project to manage a Pet Care place
 ## Technical Requirement
 ### Implementation Details
 - Java Version: 17
-- Spring Boot version: 2.7.0
+- Spring Boot version: 3.2.0
 - Database: h2
 - Use Hibernate as ORM
 - Sufficient unit test is a must
