@@ -51,7 +51,7 @@ A service request is created when owner wants to make a reservation for his pet 
 | - employeeId: Long                |
 +----------------------------------+
 ```
-Implement a service to assign the free employee with the requird skills
-The service must handle the happy paths(exactly one employee match), more than one, not at all
-implement the service throgh all the layers: controller, service & repo
-As usual unit test is a must!
+- Implement a service to assign the free employee with the requird skills
+- The service must handle the happy paths(exactly one employee match), more than one, not at all
+- Implement the service throgh all the layers: controller, service & repo
+- As usual unit test is a must!
