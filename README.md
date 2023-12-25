@@ -20,7 +20,7 @@ Saas Project to manage a Pet Care place
 - Use Hibernate as ORM
 - Sufficient unit test is a must
 - Mock or just bypass the spring security for now
-
+### Phase 1
 - Implement Pet, Owner and Employee entities and their association
 - Implement CRUD Rest Apis for all entities
 ```
@@ -33,4 +33,23 @@ Saas Project to manage a Pet Care place
 | -owner: Owner|<>------| -pets: List<Pet>|    | -password: String|
 +--------------+        +----------------+     +------------------+
 ```
+### Phase 2
+We introduce service request idea!
+A service request is created when owner wants to make a reservation for his pet to some service, ie: cleaning
++----------------------------------+
+|         ServiceRequest           |
++----------------------------------+
+| - id: string   
+| - number: string
+| - petId: Long                     |
+| - skills: List<Skill>             |
+| - dueDate: Date                   |
+| - assigned: boolean               |
+| - assignmentDate: Date            |
+| - employeeId: Long                |
++----------------------------------+
 
+Implement a service to assign the free employee with the requird skills
+The service must handle the happy paths(exactly one employee match), more than one, not at all
+implement the service throgh all the layers: controller, service & repo
+As usual unit test is a must!
