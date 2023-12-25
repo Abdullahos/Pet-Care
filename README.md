@@ -36,6 +36,8 @@ Saas Project to manage a Pet Care place
 ### Phase 2
 We introduce service request idea!
 A service request is created when owner wants to make a reservation for his pet to some service, ie: cleaning
+
+```
 +----------------------------------+
 |         ServiceRequest           |
 +----------------------------------+
@@ -48,7 +50,7 @@ A service request is created when owner wants to make a reservation for his pet 
 | - assignmentDate: Date            |
 | - employeeId: Long                |
 +----------------------------------+
-
+```
 Implement a service to assign the free employee with the requird skills
 The service must handle the happy paths(exactly one employee match), more than one, not at all
 implement the service throgh all the layers: controller, service & repo
