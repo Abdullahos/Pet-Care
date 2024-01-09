@@ -16,7 +16,6 @@ import java.util.List;
 @NoArgsConstructor
 public class Owner {
 
-//    fields
     @Id
     @SequenceGenerator(
             name = "owner_sequence",
@@ -29,39 +28,16 @@ public class Owner {
     )
     private Long id;
 
-
-    @Column(name = "name")
     private String name;
 
-    @Column
     private String contact;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
-    private List<Pet> petList;
+    private List<Pet> petList = new ArrayList<>();
 
-    //    Convenience Method
-    public void add(Pet pet){
-        if(petList == null){
-            synchronized (this){
-                if (petList == null){
-                    petList = new ArrayList<>();
-                }
-            }
-        }
-
+    public void add(Pet pet) {
         pet.setOwner(this);
         petList.add(pet);
-    }
-
-//    to string
-
-    @Override
-    public String toString() {
-        return "Owner{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", petList=" + petList +
-                '}';
     }
 }
