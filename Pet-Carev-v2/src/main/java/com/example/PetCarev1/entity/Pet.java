@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "pet")
@@ -24,10 +23,8 @@ public class Pet {
     )
     private Long id;
 
-    @Column
     private String name;
 
-    @Column
     private String species;
 
     @ManyToOne(cascade = {
@@ -40,5 +37,5 @@ public class Pet {
     @JoinColumn(name = "owner_id")
     private Owner owner;
 
-    private LocalDateTime endTime = null;
+    private LocalDateTime endTime;
 }

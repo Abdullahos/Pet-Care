@@ -24,14 +24,14 @@ public class Employee {
             generator = "employee_sequence"
     )
     private Long id;
-    @Column
+
     private String name;
-    @Column
+
     private String email;
-    @Column
+
     @JsonIgnore
     private String password;
-    @Column
+
     private LocalDateTime endTime = null;
 
     @Version
