@@ -2,8 +2,6 @@ package com.example.PetCarev1.controller;
 
 import com.example.PetCarev1.dto.RequestNewService;
 import com.example.PetCarev1.entity.Employee;
-import com.example.PetCarev1.entity.Owner;
-import com.example.PetCarev1.entity.Pet;
 import com.example.PetCarev1.entity.ServiceRequest;
 import com.example.PetCarev1.service.ServiceRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +40,7 @@ public class ServiceRequestController {
     @PostMapping
     public ResponseEntity<ServiceRequest> saveOwner(@RequestBody RequestNewService newService){
 
-        return new ResponseEntity<>(service.save(newService),HttpStatus.CREATED);
+        return new ResponseEntity<>(service.create(newService),HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}/employees")
