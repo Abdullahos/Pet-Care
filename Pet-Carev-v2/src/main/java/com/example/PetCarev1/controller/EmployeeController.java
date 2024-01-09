@@ -19,42 +19,36 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Employee>> findAllEmployee(){
-
+    public ResponseEntity<List<Employee>> findAllEmployee() {
         return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<Employee> findEmployeeByID(@PathVariable long id){
 
-        return new ResponseEntity<>(employeeService.findEmployeeById(id),HttpStatus.OK);
+    @GetMapping("/{id}")
+    public ResponseEntity<Employee> findEmployeeByID(@PathVariable long id) {
+        return new ResponseEntity<>(employeeService.findEmployeeById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee){
-
-        return new ResponseEntity<>(employeeService.saveEmployee(employee),HttpStatus.CREATED);
+    public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee) {
+        return new ResponseEntity<>(employeeService.saveEmployee(employee), HttpStatus.CREATED);
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<Employee> saveEmployee(@PathVariable Long id,@RequestBody Skill skill){
+    public ResponseEntity<Employee> saveEmployee(@PathVariable Long id, @RequestBody Skill skill) {
         Employee employee = employeeService.findEmployeeById(id);
         employee.getSkills().add(skill);
-        return new ResponseEntity<>(employeeService.saveEmployee(employee),HttpStatus.CREATED);
+        return new ResponseEntity<>(employeeService.saveEmployee(employee), HttpStatus.CREATED);
     }
-
-
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void>  deleteEmployeeById(@PathVariable long id){
+    public ResponseEntity<Void> deleteEmployeeById(@PathVariable long id) {
         employeeService.deleteEmployeeById(id);
-
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
     @PutMapping
-    public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee){
-
-        return new ResponseEntity<>(employeeService.saveEmployee(employee),HttpStatus.OK);
+    public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee) {
+        return new ResponseEntity<>(employeeService.saveEmployee(employee), HttpStatus.OK);
     }
-
 
 }

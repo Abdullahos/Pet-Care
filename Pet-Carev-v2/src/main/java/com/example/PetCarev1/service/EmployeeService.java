@@ -3,41 +3,38 @@ package com.example.PetCarev1.service;
 import com.example.PetCarev1.entity.Employee;
 import com.example.PetCarev1.exceptionHandelling.RecordNotFountException;
 import com.example.PetCarev1.repository.EmployeeRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class EmployeeService {
-
     private final EmployeeRepo employeeRepo;
 
-    @Autowired
-    public EmployeeService(EmployeeRepo employeeRepo) {
-        this.employeeRepo = employeeRepo;
-    }
-    public List<Employee> findAll(){
-        return  employeeRepo.findAll();
+    public List<Employee> findAll() {
+        return employeeRepo.findAll();
     }
 
-    public Employee findEmployeeById(long id){
+    public Employee findEmployeeById(long id) {
         Optional<Employee> result = employeeRepo.findById(id);
         Employee employee;
-        if(result.isPresent()){
+        if (result.isPresent()) {
             employee = result.get();
-        }else {
+        } else {
             throw new RecordNotFountException("Employee Not Fount");
         }
 
         return employee;
     }
 
-    public Employee saveEmployee(Employee employee){
+    public Employee saveEmployee(Employee employee) {
         return employeeRepo.save(employee);
     }
-    public boolean deleteEmployeeById(long id){
+
+    public boolean deleteEmployeeById(long id) {
         Employee employee = findEmployeeById(id);
         employeeRepo.delete(employee);
         return true;

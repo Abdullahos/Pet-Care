@@ -11,6 +11,5 @@ import java.util.Optional;
 
 @Repository
 public interface EmployeeRepo extends JpaRepository<Employee, Long> {
-
     Optional<List<Employee>> findByEndTimeIsNullOrEndTimeIsBefore(LocalDateTime dueDate);
 }

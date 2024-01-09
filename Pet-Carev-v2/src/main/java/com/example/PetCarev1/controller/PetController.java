@@ -11,7 +11,6 @@ import java.util.logging.Filter;
 @RestController
 @RequestMapping("/pets")
 public class PetController {
-
     private final PetService petService;
 
     @Autowired
@@ -23,6 +22,7 @@ public class PetController {
     public List<Pet> findAllPets(){
         return petService.findAllPets();
     }
+
     @GetMapping("/{id}")
     public Pet findPetById(@PathVariable long id){
         return petService.findPetById(id);
