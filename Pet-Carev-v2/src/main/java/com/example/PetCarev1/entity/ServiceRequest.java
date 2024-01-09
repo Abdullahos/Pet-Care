@@ -3,6 +3,7 @@ package com.example.PetCarev1.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,14 +41,19 @@ public class ServiceRequest {
             inverseJoinColumns = @JoinColumn(name = "employee_id")
     )
 
+    @EqualsAndHashCode.Exclude
     private List<Skill> skills = new ArrayList<>();
+
     @ManyToMany
     @JoinTable(
             name = "service_request_skill",
             joinColumns = @JoinColumn(name = "service_request_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id")
     )
+    @EqualsAndHashCode.Exclude
     private List<Employee> employees = new ArrayList<>();
+
+
     public ServiceRequest(){}
 
     public ServiceRequest(Long id, Long petId, LocalDateTime dueDate) {

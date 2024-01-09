@@ -3,6 +3,7 @@ package com.example.PetCarev1.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class Employee {
             joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id")
     )
-
+    @EqualsAndHashCode.Exclude
     @JsonIgnore
     private List<Skill> skills = new ArrayList<>();
 }

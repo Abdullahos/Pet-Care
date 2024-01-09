@@ -1,6 +1,7 @@
 package com.example.PetCarev1.entity;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +29,11 @@ public class Owner {
 
     @Column
     private String contact;
+
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
     private List<Pet> petList;
+
     public Owner(){
 
     }
