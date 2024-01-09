@@ -61,6 +61,11 @@ public class ServiceRequestService {
         serviceRequest.setDueDate(request.getDueDate());
 
         List<Skill> skillList = skillRepo.findAllById(request.getSkillsIds());
+        if (skillList.isEmpty()) {
+            serviceRequest = null; // it will be deleted by the garbage collector
+            throw new RuntimeException("we can't serve this request, sorry!!!!");
+        }
+        serviceRequest.setSkills(skillList);
         LocalDateTime actualServiceRequestEndDate = getActualServiceRequestEndDate(request, skillList, serviceRequest);
 
         //Avoid getting unavailable employees from the database
@@ -105,11 +110,6 @@ public class ServiceRequestService {
     }
 
     private LocalDateTime getActualServiceRequestEndDate(RequestNewService request, List<Skill> skillList, ServiceRequest serviceRequest) {
-        if (skillList.isEmpty()) {
-            serviceRequest = null; // it will be deleted by the garbage collector
-            throw new RuntimeException("we can't serve this request, sorry!!!!");
-        }
-        serviceRequest.setSkills(skillList);
         int totalServiceTime = skillList.stream()
                 .mapToInt(Skill::getDuration)
                 .sum();
