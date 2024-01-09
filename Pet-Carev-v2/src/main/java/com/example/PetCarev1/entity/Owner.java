@@ -1,13 +1,19 @@
 package com.example.PetCarev1.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "owner")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Owner {
 
 //    fields
@@ -33,49 +39,6 @@ public class Owner {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     private List<Pet> petList;
-
-    public Owner(){
-
-    }
-
-    public Owner(String name, String contact, List<Pet> petList) {
-        this.name = name;
-        this.contact = contact;
-        this.petList = petList;
-    }
-
-    public Owner(Long id, String name, String contact, List<Pet> petList) {
-        this.id = id;
-        this.name = name;
-        this.contact = contact;
-        this.petList = petList;
-    }
-    //    getter/setter
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Pet> getPetList() {
-        return petList;
-    }
-
-    public void setPetList(List<Pet> petList) {
-        this.petList = petList;
-    }
-
 
     //    Convenience Method
     public void add(Pet pet){

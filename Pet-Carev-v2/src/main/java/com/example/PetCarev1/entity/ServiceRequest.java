@@ -3,10 +3,7 @@ package com.example.PetCarev1.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,9 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "service_request")
-@Getter
-@Setter
-
+@Data
 public class ServiceRequest {
     @Id
     @SequenceGenerator(
@@ -52,13 +47,4 @@ public class ServiceRequest {
     )
     @EqualsAndHashCode.Exclude
     private List<Employee> employees = new ArrayList<>();
-
-
-    public ServiceRequest(){}
-
-    public ServiceRequest(Long id, Long petId, LocalDateTime dueDate) {
-        this.id = id;
-        this.petId = petId;
-        DueDate = dueDate;
-    }
 }
