@@ -2,23 +2,18 @@ package com.example.PetCarev1.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "employee")
-@Setter
-@Getter
-
+@Data
 public class Employee {
-
-//    fields
-
     @Id
     @SequenceGenerator(
             name = "employee_sequence",
@@ -40,30 +35,16 @@ public class Employee {
     @Column
     private LocalDateTime endTime = null;
 
+    @Version
+    private Long version;
+
     @ManyToMany
     @JoinTable(
             name = "employee_skill",
             joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id")
     )
+
     @JsonIgnore
-    private List<Skill> skills;
-
-
-
-    public Employee(){}
-
-    public Employee(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
-
-    public Employee(Long id, String name, String email, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
-
+    private List<Skill> skills = new ArrayList<>();
 }
