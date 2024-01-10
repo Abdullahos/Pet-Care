@@ -31,6 +31,16 @@ public class ServiceRequestService {
     private final PetRepo petRepo;
     private final EmployeeRepo employeeRepo;
 
+    private static void setEmployeeEndDate(RequestNewService request, Skill skill, Employee eligibleEmployee) {
+        if (eligibleEmployee.getEndTime() == null || eligibleEmployee.getEndTime().isBefore(LocalDateTime.now())) {
+            eligibleEmployee.setEndTime(LocalDateTime.now());
+        }
+        if ((eligibleEmployee.getEndTime().plusMinutes(skill.getDuration()).isBefore(request.getDueDate()))
+        ) {
+            eligibleEmployee.setEndTime(eligibleEmployee.getEndTime().plusMinutes(skill.getDuration()));
+        }
+    }
+
     public ServiceRequest findById(Long id) {
         Optional<ServiceRequest> result = serviceRequestRepo.findById(id);
         ServiceRequest serviceRequest;
@@ -68,14 +78,14 @@ public class ServiceRequestService {
         serviceRequest.setSkills(skillList);
         LocalDateTime actualServiceRequestEndDate = getActualServiceRequestEndDate(request, skillList, serviceRequest);
 
-        //Avoid getting unavailable employees from the database
+        //avoid getting unavailable employees from the database
         Optional<List<Employee>> optionalAvailableEmployee = employeeRepo.findByEndTimeIsNullOrEndTimeIsBefore(request.getDueDate());
         if (optionalAvailableEmployee.isEmpty()) {
             serviceRequest = null; // it will be deleted by the garbage collector
             throw new RuntimeException("No Current Available Employees");
         }
 
-        //get employees with fewer skills first
+        //check employees with fewer skills first
         List<Employee> availableEmployees = optionalAvailableEmployee.get();
         availableEmployees.sort(Comparator.comparingInt(a -> a.getSkills().size()));
 
@@ -84,7 +94,12 @@ public class ServiceRequestService {
         for (Skill skill : skillList) {
             Optional<Employee> optionalEmployee = availableEmployees
                     .stream()
-                    .filter(employee -> employee.getSkills().contains(skill))
+                    .filter(
+                            employee ->
+                                    (employee.getEndTime() == null || employee.getEndTime().plusMinutes(skill.getDuration()).isBefore(request.getDueDate()))
+                                            && employee.getSkills().contains(skill)
+
+                    )
                     .findFirst();
 
             if (optionalEmployee.isEmpty()) {
@@ -104,6 +119,7 @@ public class ServiceRequestService {
         return serviceRequestRepo.save(serviceRequest);
     }
 
+    //To be called if last retry fails
     @Recover
     void recover(OptimisticLockException e) {
         throw new RuntimeException("Sorry we 're getting lot of requests now :(");
@@ -119,16 +135,6 @@ public class ServiceRequestService {
             throw new RuntimeException(String.format("We are Sorry to inform you that your we need much time to serve all your %s requests", request.getSkillsIds().size()));
         }
         return actualServiceEndDate;
-    }
-
-    private static void setEmployeeEndDate(RequestNewService request, Skill skill, Employee eligibleEmployee) {
-        if (eligibleEmployee.getEndTime() == null || eligibleEmployee.getEndTime().isBefore(LocalDateTime.now())) {
-            eligibleEmployee.setEndTime(LocalDateTime.now());
-        }
-        if ((eligibleEmployee.getEndTime().plusMinutes(skill.getDuration()).isBefore(request.getDueDate()))
-        ) {
-            eligibleEmployee.setEndTime(eligibleEmployee.getEndTime().plusMinutes(skill.getDuration()));
-        }
     }
 
     public List<Employee> findAllEmployeesByServiceRequestId(long id) {
