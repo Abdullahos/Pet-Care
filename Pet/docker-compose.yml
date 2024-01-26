@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  app:
+    image: openjdk:11-jdk
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/pet_care_test
+      - SPRING_DATASOURCE_USERNAME=springboot
+      - SPRING_DATASOURCE_PASSWORD=springboot
+    depends_on:
+      - db
+    command: ["./mvnw", "spring-boot:run"]
+
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=pet_care_test
+      - MYSQL_USER=springboot
+      - MYSQL_PASSWORD=springboot
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
